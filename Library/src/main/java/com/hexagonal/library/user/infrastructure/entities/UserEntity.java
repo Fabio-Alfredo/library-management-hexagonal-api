@@ -1,5 +1,6 @@
 package com.hexagonal.library.user.infrastructure.entities;
 
+import com.hexagonal.library.user.domain.models.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -19,6 +20,14 @@ public class UserEntity {
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+    }
+
+    public static UserEntity fromDomainModel(User user){
+        return new UserEntity(user.getId(), user.getName(), user.getLastname(), user.getEmail(), user.getPassword())
+    }
+
+    public User toDomainModel(){
+        return new User(id, name, lastname, email, password);
     }
 
     public String getId() {
