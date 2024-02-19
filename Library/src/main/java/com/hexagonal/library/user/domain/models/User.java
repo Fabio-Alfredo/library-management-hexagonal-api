@@ -1,6 +1,6 @@
 package com.hexagonal.library.user.domain.models;
 
-import java.util.PrimitiveIterator;
+
 
 public class User {
     private String id;

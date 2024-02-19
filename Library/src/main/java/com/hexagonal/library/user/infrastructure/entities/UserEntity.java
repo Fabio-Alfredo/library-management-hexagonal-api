@@ -1,11 +1,13 @@
 package com.hexagonal.library.user.infrastructure.entities;
 
 import com.hexagonal.library.user.domain.models.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
-@Entity
+import jakarta.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "users")
 public class UserEntity {
+
     @Id
     private String id;
 
@@ -13,6 +15,9 @@ public class UserEntity {
     private String lastname;
     private String email;
     private String password;
+    public UserEntity() {
+
+    }
 
     public UserEntity(String id, String name, String lastname, String email, String password) {
         this.id = id;
@@ -22,8 +27,10 @@ public class UserEntity {
         this.password = password;
     }
 
+
+
     public static UserEntity fromDomainModel(User user){
-        return new UserEntity(user.getId(), user.getName(), user.getLastname(), user.getEmail(), user.getPassword())
+        return new UserEntity(user.getId(), user.getName(), user.getLastname(), user.getEmail(), user.getPassword());
     }
 
     public User toDomainModel(){
