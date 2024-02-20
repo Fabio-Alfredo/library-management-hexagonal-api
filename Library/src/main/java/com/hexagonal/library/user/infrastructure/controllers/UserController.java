@@ -23,7 +23,6 @@ public class UserController {
 
     @PostMapping("/created")
     public ResponseEntity<Object> saveUser(@Valid @RequestBody User user){
-
        return userService.createdUser(user);
     }
 
