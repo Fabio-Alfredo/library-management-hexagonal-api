@@ -1,12 +1,19 @@
 package com.hexagonal.library.user.domain.models;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class User {
     private String id;
+    @NotBlank(message = "insert your name")
     private String name;
+    @NotBlank(message = "insert your lastname")
     private String lastname;
+    @NotBlank(message = "insert your email")
     private String email;
+    @NotBlank(message = "insert your password")
+    @Size(min = 6, max = 15, message = "Password must be 6 to 20 characters")
     private String password;
 
     public User(String id, String name, String lastname, String email, String password) {

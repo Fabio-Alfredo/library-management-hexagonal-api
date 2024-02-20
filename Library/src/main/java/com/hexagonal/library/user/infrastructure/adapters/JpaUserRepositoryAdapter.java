@@ -31,7 +31,6 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
             return ResponseEntity.badRequest().body(new ExceptionErrorMessage("new email, email invalid"));
 
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(new ExceptionErrorMessage("server error"));
         }
 
