@@ -1,9 +1,9 @@
 package com.hexagonal.library.user.domain.ports.out;
 
 import com.hexagonal.library.user.domain.models.User;
-import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseEntity;
 
 
 public interface UserRepositoryPort {
-    String save (User user);
+    ResponseEntity<Object> save (User user);
 }

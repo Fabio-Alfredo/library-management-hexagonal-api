@@ -2,6 +2,7 @@ package com.hexagonal.library.user.aplication.service;
 
 import com.hexagonal.library.user.domain.models.User;
 import com.hexagonal.library.user.domain.ports.in.CreateUserUseCase;
+import org.springframework.http.ResponseEntity;
 
 public class UserService implements CreateUserUseCase {
     private final CreateUserUseCase createUserUseCase;
@@ -11,7 +12,7 @@ public class UserService implements CreateUserUseCase {
     }
 
     @Override
-    public String createdUser(User user) {
+    public ResponseEntity<Object> createdUser(User user) {
         return createUserUseCase.createdUser(user);
     }
 }

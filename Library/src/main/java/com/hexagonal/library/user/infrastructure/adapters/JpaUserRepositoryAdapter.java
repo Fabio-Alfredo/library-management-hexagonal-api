@@ -1,9 +1,13 @@
 package com.hexagonal.library.user.infrastructure.adapters;
 
+import com.hexagonal.library.exceptions.dto.ExceptionErrorMessage;
+import com.hexagonal.library.exceptions.dto.MessageAcceptedService;
 import com.hexagonal.library.user.domain.models.User;
 import com.hexagonal.library.user.domain.ports.out.UserRepositoryPort;
 import com.hexagonal.library.user.infrastructure.entities.UserEntity;
 import com.hexagonal.library.user.infrastructure.respositories.JpaUserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,20 +19,20 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public String save(User user) {
+    public ResponseEntity<Object> save(User user) {
         try{
 
             if(!jpaUserRepository.existsByEmail(user.getEmail())){
                 UserEntity userEntity = UserEntity.fromDomainModel(user);
                 jpaUserRepository.save(userEntity);
-                return "user created";
+                return  ResponseEntity.ok(new MessageAcceptedService("user created"));
 
             }
-            return "new email, email invalid";
+            return ResponseEntity.badRequest().body(new ExceptionErrorMessage("new email, email invalid"));
 
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return "server error";
+            return ResponseEntity.badRequest().body(new ExceptionErrorMessage("server error"));
         }
 
     }

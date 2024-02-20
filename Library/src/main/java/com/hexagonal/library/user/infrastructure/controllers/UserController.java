@@ -2,6 +2,7 @@ package com.hexagonal.library.user.infrastructure.controllers;
 
 import com.hexagonal.library.user.aplication.service.UserService;
 import com.hexagonal.library.user.domain.models.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/created")
-    @ResponseBody
-    public String saveUser(@RequestBody User user){
+    public ResponseEntity<Object> saveUser(@RequestBody User user){
+
        return userService.createdUser(user);
     }
 
