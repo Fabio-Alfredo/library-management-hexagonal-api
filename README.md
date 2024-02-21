@@ -1,2 +1,2 @@
-# library-management-hexagonal-api
+# library solutions
 
