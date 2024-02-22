@@ -1,5 +1,6 @@
 package com.hexagonal.library.book.infrastructure.entities;
 
+import com.hexagonal.library.book.domain.models.Book;
 import jakarta.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,11 +12,22 @@ public class BookEntity {
     private String name;
     private String author;
 
+    public BookEntity() {
+
+    }
     public BookEntity(String id, String isbn, String name, String author) {
         this.id = id;
         this.isbn = isbn;
         this.name = name;
         this.author = author;
+    }
+
+    public static BookEntity fromDomainModelBook(Book book){
+        return new BookEntity(book.getId(), book.getIsbn(), book.getName(), book.getAuthor());
+    }
+
+    public Book toDomainModelBook(){
+        return new Book(id, isbn, name, author);
     }
 
     public String getId() {
