@@ -7,7 +7,9 @@ import com.hexagonal.library.book.infrastructure.repositories.JpaBookRepository;
 import com.hexagonal.library.exceptions.dto.ExceptionErrorMessage;
 import com.hexagonal.library.exceptions.dto.MessageAcceptedService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JpaBookRepositoryAdapter implements BookRepositoryPort {
 
     private final JpaBookRepository jpaBookRepository;
