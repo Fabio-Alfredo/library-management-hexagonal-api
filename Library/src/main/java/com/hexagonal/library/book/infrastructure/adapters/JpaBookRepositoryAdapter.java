@@ -25,6 +25,7 @@ public class JpaBookRepositoryAdapter implements BookRepositoryPort {
             jpaBookRepository.save(bookEntity);
             return ResponseEntity.ok( new MessageAcceptedService("saves"));
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(new ExceptionErrorMessage("error service"));
         }
 
