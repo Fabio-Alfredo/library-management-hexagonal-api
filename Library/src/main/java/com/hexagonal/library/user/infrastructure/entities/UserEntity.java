@@ -14,27 +14,25 @@ public class UserEntity {
     private String name;
     private String lastname;
     private String email;
-    private String password;
     public UserEntity() {
 
     }
 
-    public UserEntity(String id, String name, String lastname, String email, String password) {
+    public UserEntity(String id, String name, String lastname, String email) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
-        this.password = password;
     }
 
 
 
     public static UserEntity fromDomainModel(User user){
-        return new UserEntity(user.getId(), user.getName(), user.getLastname(), user.getEmail(), user.getPassword());
+        return new UserEntity(user.getId(), user.getName(), user.getLastname(), user.getEmail());
     }
 
     public User toDomainModel(){
-        return new User(id, name, lastname, email, password);
+        return new User(id, name, lastname, email);
     }
 
     public String getId() {
@@ -69,11 +67,4 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

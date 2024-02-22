@@ -14,16 +14,12 @@ public class User {
     @NotBlank(message = "insert your email")
     @Email(message = "invalid format email")
     private String email;
-    @NotBlank(message = "insert your password")
-    @Size(min = 6, max = 15, message = "Password must be 6 to 20 characters")
-    private String password;
 
-    public User(String id, String name, String lastname, String email, String password) {
+    public User(String id, String name, String lastname, String email) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
-        this.password = password;
     }
 
     public String getId() {
@@ -58,11 +54,4 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
