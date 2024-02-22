@@ -1,18 +1,17 @@
-package com.hexagonal.library.book.domain.models;
+package com.hexagonal.library.book.infrastructure.entities;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public class Book {
-
+@Document(collection = "Books")
+public class BookEntity {
+    @Id
     private String id;
-    @NotBlank(message = "isbn")
     private String isbn;
-    @NotBlank(message = "name")
     private String name;
-    @NotBlank(message = "author")
     private String author;
 
-    public Book(String id, String isbn, String name, String author) {
+    public BookEntity(String id, String isbn, String name, String author) {
         this.id = id;
         this.isbn = isbn;
         this.name = name;
