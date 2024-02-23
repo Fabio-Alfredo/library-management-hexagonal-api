@@ -19,14 +19,6 @@ public class Book {
 
     }
 
-    public Book(String id, String isbn, String name, String author, int total) {
-        this.id = id;
-        this.isbn = isbn;
-        this.name = name;
-        this.author = author;
-        this.total = total;
-    }
-
     public Book(String id, String isbn, String name, String author, int total, int available) {
         this.id = id;
         this.isbn = isbn;
@@ -35,6 +27,7 @@ public class Book {
         this.total = total;
         this.available = available;
     }
+
 
     public int getTotal() {
         return total;

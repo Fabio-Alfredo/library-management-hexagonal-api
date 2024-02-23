@@ -1,9 +1,11 @@
 package com.hexagonal.library.user.domain.models;
 
 
+import com.hexagonal.library.book.domain.models.Book;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 public class User {
     private String id;
@@ -15,11 +17,22 @@ public class User {
     @Email(message = "invalid format email")
     private String email;
 
-    public User(String id, String name, String lastname, String email) {
+    private List<String> books;
+
+    public User(String id, String name, String lastname, String email, List<String> books) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
+        this.books = books;
+    }
+
+    public void setBooks(List<String> books) {
+        this.books = books;
+    }
+
+    public List<String> getBooks() {
+        return books;
     }
 
     public String getId() {
