@@ -12,11 +12,44 @@ public class Book {
     @NotBlank(message = "author")
     private String author;
 
-    public Book(String id, String isbn, String name, String author) {
+    private int total;
+    private int available;
+
+    public Book() {
+
+    }
+
+    public Book(String id, String isbn, String name, String author, int total) {
         this.id = id;
         this.isbn = isbn;
         this.name = name;
         this.author = author;
+        this.total = total;
+    }
+
+    public Book(String id, String isbn, String name, String author, int total, int available) {
+        this.id = id;
+        this.isbn = isbn;
+        this.name = name;
+        this.author = author;
+        this.total = total;
+        this.available = available;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
     }
 
     public String getId() {

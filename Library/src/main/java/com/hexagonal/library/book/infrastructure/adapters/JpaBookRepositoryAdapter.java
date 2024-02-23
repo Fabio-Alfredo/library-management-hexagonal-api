@@ -21,14 +21,23 @@ public class JpaBookRepositoryAdapter implements BookRepositoryPort {
     @Override
     public ResponseEntity<Object> saveBook(Book book) {
         try {
-            BookEntity bookEntity = BookEntity.fromDomainModelBook(book);
+            BookEntity bookEntity;
+            if(jpaBookRepository.existsByName(book.getName())){
+                bookEntity = jpaBookRepository.findByName(book.getName());
+            }else{
+                bookEntity = BookEntity.fromDomainModelBook(book);
+            }
+
+            String message = (jpaBookRepository.existsByName(book.getName())) ? "saves" : "saves new book";
+            bookEntity.sumBook(book.getTotal());
             jpaBookRepository.save(bookEntity);
-            return ResponseEntity.ok( new MessageAcceptedService("saves"));
+
+            return ResponseEntity.ok(new MessageAcceptedService(message));
+
         }catch (Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(new ExceptionErrorMessage("error service"));
         }
-
 
     }
 }
