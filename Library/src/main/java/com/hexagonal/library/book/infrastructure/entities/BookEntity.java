@@ -31,13 +31,13 @@ public class BookEntity {
     }
 
 
-    public void sumBook(int cant){
+    public void sumBook(int total, int dispo){
         if(this.available == 0){
-            this.available = cant;
-            this.total = cant;
+            this.available = dispo;
+            this.total = total;
         }else{
-            this.available += cant;
-            this.total +=cant;
+            this.available += dispo;
+            this.total +=total;
         }
 
     }

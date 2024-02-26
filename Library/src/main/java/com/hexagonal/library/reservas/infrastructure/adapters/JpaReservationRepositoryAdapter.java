@@ -33,38 +33,41 @@ public class JpaReservationRepositoryAdapter implements ReservationRepositoryPor
     @Override
     public ResponseEntity<Object> save(Reservation reservation) {
         try {
-            BookEntity bookEntity = jpaBookRepository.findByName(reservation.getBookName());
             UserEntity userEntity = jpaUserRepository.findByName(reservation.getUserName());
+            BookEntity bookEntity = jpaBookRepository.findByName(reservation.getBookName());
 
-            if (userEntity != null) {
-                if (bookEntity != null && bookEntity.getAvailable() > 0) {
-                    bookEntity.sumBook(-1);
-
-                    List<String> userBooks = userEntity.getBooks();
-                    if (userBooks == null) {
-                        userBooks = new ArrayList<>();  // Inicializar la lista si es null
-                    }
-                    userBooks.add(bookEntity.getName());
-                    userEntity.setBooks(userBooks);
-
-                    ReservationEntity reservationEntity = ReservationEntity.fromDomainModel(reservation);
-
-                    jpaBookRepository.save(bookEntity);
-                    jpaUserRepository.save(userEntity);
-                    jpaReservationRepository.save(reservationEntity);
-
-                    return ResponseEntity.ok(new MessageAcceptedService("Libro disponible"));
-                } else if (bookEntity == null) {
-                    return ResponseEntity.badRequest().body(new ExceptionErrorMessage("Libro no existente"));
-                }
-                return ResponseEntity.internalServerError().body(new ExceptionErrorMessage("No disponible"));
-            } else {
+            if (userEntity == null) {
                 return ResponseEntity.badRequest().body(new ExceptionErrorMessage("Usuario no existente"));
             }
+
+            if (bookEntity == null) {
+                return ResponseEntity.badRequest().body(new ExceptionErrorMessage("Libro no existente"));
+            }
+
+            if (bookEntity.getAvailable() <= 0) {
+                return ResponseEntity.internalServerError().body(new ExceptionErrorMessage("No disponible"));
+            }
+            bookEntity.sumBook(-1, 0);
+
+            List<String> userBooks = userEntity.getBooks();
+            if (userBooks == null) {
+                userBooks = new ArrayList<>();
+            }
+            userBooks.add(bookEntity.getName());
+            userEntity.setBooks(userBooks);
+
+            ReservationEntity reservationEntity = ReservationEntity.fromDomainModel(reservation);
+
+            jpaBookRepository.save(bookEntity);
+            jpaUserRepository.save(userEntity);
+            jpaReservationRepository.save(reservationEntity);
+
+            return ResponseEntity.ok(new MessageAcceptedService("Libro disponible"));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ExceptionErrorMessage("Error interno en el servidor"+e.getMessage()));
+            return ResponseEntity.internalServerError().body(new ExceptionErrorMessage("Error interno en el servidor" + e.getMessage()));
         }
     }
+
 
 
 }

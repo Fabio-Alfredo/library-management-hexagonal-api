@@ -29,7 +29,7 @@ public class JpaBookRepositoryAdapter implements BookRepositoryPort {
             }
 
             String message = (jpaBookRepository.existsByName(book.getName())) ? "saves" : "saves new book";
-            bookEntity.sumBook(book.getTotal());
+            bookEntity.sumBook(book.getTotal(), bookEntity.getTotal());
             jpaBookRepository.save(bookEntity);
 
             return ResponseEntity.ok(new MessageAcceptedService(message));
