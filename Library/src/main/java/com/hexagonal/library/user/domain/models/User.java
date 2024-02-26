@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String id;
     @NotBlank(message = "insert your name")
@@ -15,11 +18,14 @@ public class User {
     @Email(message = "invalid format email")
     private String email;
 
-    public User(String id, String name, String lastname, String email) {
+    private List<String> books;
+
+    public User(String id, String name, String lastname, String email, List<String> books) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
+        this.books = books;
     }
 
     public String getId() {
@@ -54,4 +60,11 @@ public class User {
         this.email = email;
     }
 
+    public List<String> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<String> books) {
+        this.books = books;
+    }
 }
