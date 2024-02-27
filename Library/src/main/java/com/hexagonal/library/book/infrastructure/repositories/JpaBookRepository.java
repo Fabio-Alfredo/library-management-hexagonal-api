@@ -8,5 +8,4 @@ import java.util.List;
 public interface JpaBookRepository extends MongoRepository<BookEntity, Long> {
     boolean existsByName(String name);
     BookEntity findByName(String name);
-    List<BookEntity>findByNameIn(List<String>bookEntities);
 }
