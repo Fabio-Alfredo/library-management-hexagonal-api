@@ -1,14 +1,16 @@
 package com.hexagonal.library.reservas.domain.models;
 
+import java.util.List;
+
 public class Reservation {
     private String id;
     private String userName;
-    private String bookName;
+    private List<String> booksTitle;
 
-    public Reservation(String id, String userName, String bookName) {
+    public Reservation(String id, String userName, List<String> booksTitle) {
         this.id = id;
         this.userName = userName;
-        this.bookName = bookName;
+        this.booksTitle = booksTitle;
     }
 
     public String getId() {
@@ -27,11 +29,11 @@ public class Reservation {
         this.userName = userName;
     }
 
-    public String getBookName() {
-        return bookName;
+    public List<String> getBooksTitle() {
+        return booksTitle;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setBooksTitle(List<String> booksTitle) {
+        this.booksTitle = booksTitle;
     }
 }

@@ -3,24 +3,30 @@ package com.hexagonal.library.reservas.infrastructure.entities;
 import com.hexagonal.library.reservas.domain.models.Reservation;
 import jakarta.persistence.Id;
 
+import java.util.List;
+
 public class ReservationEntity {
     @Id
     private String id;
     private String userName;
-    private String bookName;
+    private List<String> booksTitle;
 
-    public ReservationEntity(String id, String userName, String bookName) {
+    public ReservationEntity() {
+
+    }
+
+    public ReservationEntity(String id, String userName, List<String> booksTitle) {
         this.id = id;
         this.userName = userName;
-        this.bookName = bookName;
+        this.booksTitle = booksTitle;
     }
 
     public static ReservationEntity fromDomainModel(Reservation reservation){
-        return new ReservationEntity(reservation.getId(), reservation.getUserName(), reservation.getBookName());
+        return new ReservationEntity(reservation.getId(), reservation.getUserName(), reservation.getBooksTitle());
     }
 
     public Reservation toDomainModel(){
-        return new Reservation(id, userName, bookName);
+        return new Reservation(id, userName, booksTitle);
     }
 
     public String getId() {
@@ -39,11 +45,11 @@ public class ReservationEntity {
         this.userName = userName;
     }
 
-    public String getBookName() {
-        return bookName;
+    public List<String> getBooksTitle() {
+        return booksTitle;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setBooksTitle(List<String> booksTitle) {
+        this.booksTitle = booksTitle;
     }
 }

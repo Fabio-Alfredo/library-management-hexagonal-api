@@ -9,7 +9,7 @@ public class BookEntity {
     @Id
     private String id;
     private String isbn;
-    private String name;
+    private String title;
     private String author;
     private int total;
     private int available;
@@ -19,12 +19,12 @@ public class BookEntity {
     }
 
     public static BookEntity fromDomainModelBook(Book book){
-        return new BookEntity(book.getId(), book.getIsbn(), book.getName(), book.getAuthor(), book.getTotal(), book.getAvailable());
+        return new BookEntity(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(), book.getTotal(), book.getAvailable());
     }
     public BookEntity(String id, String isbn, String name, String author, int total, int available) {
         this.id = id;
         this.isbn = isbn;
-        this.name = name;
+        this.title = name;
         this.author = author;
         this.total = total;
         this.available = available;
@@ -42,7 +42,7 @@ public class BookEntity {
 
     }
     public Book toDomainModelBook(){
-        return new Book(id, isbn, name, author, total, available);
+        return new Book(id, isbn, title, author, total, available);
     }
 
     public int getTotal() {
@@ -77,12 +77,12 @@ public class BookEntity {
         this.isbn = isbn;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {

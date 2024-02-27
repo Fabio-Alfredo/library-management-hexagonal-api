@@ -8,7 +8,7 @@ public class Book {
     @NotBlank(message = "isbn")
     private String isbn;
     @NotBlank(message = "name")
-    private String name;
+    private String title;
     @NotBlank(message = "author")
     private String author;
 
@@ -22,7 +22,7 @@ public class Book {
     public Book(String id, String isbn, String name, String author, int total) {
         this.id = id;
         this.isbn = isbn;
-        this.name = name;
+        this.title = name;
         this.author = author;
         this.total = total;
     }
@@ -30,7 +30,7 @@ public class Book {
     public Book(String id, String isbn, String name, String author, int total, int available) {
         this.id = id;
         this.isbn = isbn;
-        this.name = name;
+        this.title = name;
         this.author = author;
         this.total = total;
         this.available = available;
@@ -68,12 +68,12 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {

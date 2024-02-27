@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface JpaBookRepository extends MongoRepository<BookEntity, Long> {
-    boolean existsByName(String name);
-    BookEntity findByName(String name);
+    boolean existsByTitle(String title);
+    List<BookEntity> findByTitleIn(List<String> title);
+    BookEntity findByTitle(String title);
 }

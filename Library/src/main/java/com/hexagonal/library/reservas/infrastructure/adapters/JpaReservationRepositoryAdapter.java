@@ -34,35 +34,48 @@ public class JpaReservationRepositoryAdapter implements ReservationRepositoryPor
     public ResponseEntity<Object> save(Reservation reservation) {
         try {
             UserEntity userEntity = jpaUserRepository.findByName(reservation.getUserName());
-            BookEntity bookEntity = jpaBookRepository.findByName(reservation.getBookName());
+            List<BookEntity> bookEntities = jpaBookRepository.findByTitleIn(reservation.getBooksTitle());
 
             if (userEntity == null) {
                 return ResponseEntity.badRequest().body(new ExceptionErrorMessage("Usuario no existente"));
             }
 
-            if (bookEntity == null) {
+            if (bookEntities.isEmpty()) {
                 return ResponseEntity.badRequest().body(new ExceptionErrorMessage("Libro no existente"));
             }
 
-            if (bookEntity.getAvailable() <= 0) {
-                return ResponseEntity.internalServerError().body(new ExceptionErrorMessage("No disponible"));
+            List<String> errorMessages = new ArrayList<>();
+
+            for (BookEntity bookEntity : bookEntities) {
+                if (bookEntity.getAvailable() <= 0) {
+                    errorMessages.add("Libro no disponible: " + bookEntity.getTitle());
+                } else {
+                    bookEntity.sumBook(-1, 0);
+                }
             }
-            bookEntity.sumBook(-1, 0);
+
+            if (!errorMessages.isEmpty()) {
+                return ResponseEntity.badRequest().body(new ExceptionErrorMessage(String.join(", ", errorMessages)));
+            }
 
             List<String> userBooks = userEntity.getBooks();
             if (userBooks == null) {
                 userBooks = new ArrayList<>();
             }
-            userBooks.add(bookEntity.getName());
+
+            for (BookEntity bookEntity : bookEntities) {
+                userBooks.add(bookEntity.getTitle());
+            }
+
             userEntity.setBooks(userBooks);
 
             ReservationEntity reservationEntity = ReservationEntity.fromDomainModel(reservation);
 
-            jpaBookRepository.save(bookEntity);
+            jpaBookRepository.saveAll(bookEntities);
             jpaUserRepository.save(userEntity);
             jpaReservationRepository.save(reservationEntity);
 
-            return ResponseEntity.ok(new MessageAcceptedService("Libro disponible"));
+            return ResponseEntity.ok(new MessageAcceptedService("Libros disponibles"));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(new ExceptionErrorMessage("Error interno en el servidor" + e.getMessage()));
         }
